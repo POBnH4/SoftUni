@@ -1,0 +1,105 @@
+public class Main {
+    public static void main(String[] args) {
+
+
+        LinkedStack<Integer> linkedStack = new LinkedStack<>();
+        linkedStack.push(1);
+        linkedStack.push(2);
+        linkedStack.push(3);
+        linkedStack.push(4);
+
+        linkedStack.pop();
+        linkedStack.pop();
+
+        System.out.println("\n- - - - -");
+        Object[] objects = linkedStack.toArray();
+        for(Object obj : objects){
+            System.out.println(obj);
+        }
+        System.out.println("- - - - -");
+    }
+}
+
+
+
+
+
+
+public class LinkedStack<E> {
+
+    //        Problem 4. Linked Stack
+//        Implement a stack by a &quot;linked list&quot; as underlying data structure:
+//        The Push(element) operation should create a new Node<T>
+//        and put it as firstNode, followed by the old value
+//        of the firstNode, e.g. this.firstNode = new Node<T>(element, this.firstNode).
+//        The Pop() operation should return the firstNode and replace it with firstNode.NextNode. If the stack is
+//        empty, it should throw InvalidOperationException.
+//        Use the following code as start(The archive with the code is in the folder);
+//        You may modify and adjust the code from the DoublyLinkedList<T>;
+//        class from the last lesson. If the queue is
+//        empty, the Dequeue() should throw InvalidOperationException.
+
+    private Node<E> firstNode;
+    private int size;
+
+
+    public int size() { return this.size; }
+    private void setSize(int size) { this.size = size; }
+
+    public void push(E element) {
+        if(this.size == 0){
+            this.firstNode = new Node<>(element);
+        }else{
+            Node<E> node = this.firstNode;
+            this.firstNode = new Node<>(element, node);
+        }
+
+        setSize(size() + 1);
+    }
+
+    public E pop() {
+        System.out.print(size() + " ");
+        if(size() == 0) {
+            throw new IllegalArgumentException("Stack is empty");
+        }
+        E toReturn = this.firstNode.value;
+        this.firstNode = this.firstNode.nextNode;
+        this.size--;
+        return toReturn;
+    }
+
+
+    public E[] toArray() {
+        E[] toReturn = (E[]) new Object[this.size];
+        Node<E> tempFirstNode = this.firstNode;
+        int index = 0;
+        while(tempFirstNode != null){
+            toReturn[index++] = tempFirstNode.value;
+            tempFirstNode = tempFirstNode.nextNode;
+        }
+        return toReturn;
+    }
+
+    private class Node<E> {
+
+        private E value;
+        private Node<E> nextNode;
+
+        public Node(E value) {
+            this.value = value;
+        }
+
+        public Node(E value, Node<E> nextNode) {
+            this.nextNode = nextNode;
+            this.value = value;
+        }
+
+        public Node<E> getNextNode() {
+            return this.nextNode;
+        }
+
+        public void setNextNode(Node<E> nextNode) {
+            this.nextNode = nextNode;
+        }
+    }
+}

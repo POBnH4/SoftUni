@@ -1,0 +1,32 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+    public static void main(String[] args) {
+//        Problem 1. Reverse Numbers with a Stack
+//        Write a program that reads N integers from
+//        the console and reverses them using a stack.
+//        Use the Stack&lt;int&gt;
+//        class from .NET Framework. Just put the input
+//        numbers in the stack and pop them. Examples:
+
+        Stack<Integer> stack = new Stack<>();
+        Scanner scanner = new Scanner(System.in);
+        String output = "";
+        String aLine = scanner.nextLine();
+        for (int i = 0; i < aLine.length(); i++) {
+            output += aLine.charAt(i);
+            if (aLine.charAt(i) == ' ' || i == aLine.length() - 1) {
+                stack.push(Integer.parseInt(output.trim()));
+                output = "";
+            }
+        }
+        if (!stack.isEmpty()) {
+            while(!stack.isEmpty()){
+                System.out.print(stack.pop() + " ");
+            }
+        } else {
+            System.out.println("");
+        }
+    }
+}

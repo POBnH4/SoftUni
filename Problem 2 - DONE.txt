@@ -1,0 +1,38 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+    public static void main(String[] args) {
+//        Problem 2. Calculate Sequence with a Queue
+//        We are given the following sequence of numbers:
+//          S1 = N
+//          S2 = S1 + 1
+//          S3 = 2*S1 + 1
+//          S4 = S1 + 2
+//          S5 = S2 + 1
+//          S6 = 2*S2 + 1
+//          S7 = S2 + 2
+//        Using the Queue&lt;T&gt; class, write a program to print its first 50 members for given N.
+
+        Scanner scanner = new Scanner(System.in);
+        Queue<Integer> queue = new LinkedList<>();
+        int n = scanner.nextInt();
+        int index = 0;
+        queue.add(n);
+        int numbers = 50;
+        while(index != 50){
+            if(index == numbers - 1){
+                System.out.print(queue.element());
+            }else {
+                System.out.print(queue.element() + ", ");
+            }
+            int current = queue.poll();
+            queue.offer(current + 1);
+            queue.offer(current * 2 + 1);
+            queue.offer(current + 2);
+            index++;
+        }
+    }
+}

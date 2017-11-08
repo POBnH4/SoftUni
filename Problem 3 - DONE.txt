@@ -1,0 +1,116 @@
+public class Main {
+    public static void main(String[] args) {
+
+        ArrayStack<Integer> arrayStack = new ArrayStack<>();
+
+        arrayStack.push(1);
+        arrayStack.push(2);
+        arrayStack.push(3);
+        arrayStack.push(4);
+        arrayStack.push(5);
+        arrayStack.push(6);
+
+
+        Object[] objects = arrayStack.toArray();
+        for(Object obj : objects){
+            System.out.print(obj + " ");
+        }
+        
+        System.out.println();
+        System.out.println(arrayStack.pop());
+        System.out.println(arrayStack.pop());
+        
+        System.out.println(arrayStack.size() + " size");
+
+    }
+}
+
+
+
+
+
+public class ArrayStack<T> {
+
+    //        Problem 3. Implement an Array-Based Stack
+//
+//        Implement the &quot;stack&quot;
+//        data structure Stack&lt;T&gt; that holds its elements in an array:
+//        Follow the concepts from the CircularQueue&lt;T&gt;
+//        class from the exercises in class. The stack is simpler than the
+//        circular queue, so you will need to follow the same
+//        logic, but more simplified. Some hints:
+
+//        The stack capacity is this.elements.Length
+//        Keep the stack size (number of elements) in this.Count
+//        Push(element) just saves the element in elements[this.Count] and increases this.Count
+//        Push(element) should invoke Grow() in case of this.Count == this.elements.Length
+//        Pop() decreases this.Count and returns this.elements[this.Count]
+
+//        Grow() allocates a new array newElements of size 2 * this.elements.Length and copies the first
+//        this.Count elements from this.elements to newElements.
+//        Finally, assign this.elements = newElements
+
+//        ToArray() just creates and returns a sub-array of this.elements[0…this.Count-1]
+//        Pop() should throw InvalidOperationException(or UnsupportedOperationException) if the
+//        stack is empty
+
+    private static final int INITIAL_CAPACITY = 16;
+
+    private T[] elements;
+    private int size;
+
+    public ArrayStack() {
+        this.elements = (T[]) new Object[INITIAL_CAPACITY];
+    }
+
+    public ArrayStack(int capacity) {
+        this.elements = (T[]) new Object[capacity];
+    }
+
+    public int size() {
+        return this.size;
+    }
+
+    private void setSize(int size) {
+        this.size = size;
+    }
+
+    public void push(T element) {
+        if (this.size == this.elements.length - 1) {
+            grow();
+        }
+        this.elements[this.size] = element;
+        this.size++;
+    }
+
+    public T pop() {
+        if (size() == 0) {
+            throw new UnsupportedOperationException("Your stack is empty");
+        }
+        int index = this.size - 1;
+        T pop = this.elements[index];
+        this.elements[index] = null;
+        setSize(index);
+        return pop;
+    }
+
+    public T[] toArray() {
+        T[] newArray = (T[]) new Object[this.size];
+        int index = 0;
+        for (int i = this.size - 1; i >= 0; i--) {
+            newArray[index++] = this.elements[i];
+
+        }
+        return newArray;
+    }
+
+    private void grow() {
+        T[] newArray = (T[]) new Object[this.size() * 2];
+        int index = 0;
+        for(int i = 0; i < this.size; i++){
+            newArray[index] = this.elements[i];
+            index++;
+        }
+        this.elements = newArray;
+    }
+}
