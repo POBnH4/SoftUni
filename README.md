@@ -1,2 +1,2 @@
 # SoftUni
-Other exercises
+Other java exercises
